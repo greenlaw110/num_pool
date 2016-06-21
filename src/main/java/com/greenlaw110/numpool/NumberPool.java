@@ -1,8 +1,6 @@
 package com.greenlaw110.numpool;
 
-import com.sun.org.apache.bcel.internal.util.Objects;
-
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.TreeSet;
 
 public class NumberPool {
