@@ -23,7 +23,7 @@ public class App {
     }
 
     private static void benchmark() throws Exception {
-        NumPoolConfig.configureBitSetWords(1024);
+        NumPoolConfig.configureBitSetWords(1);
         long max = Integer.MAX_VALUE * 100L;
         //long max = 10;
         NumPool pool = new NumPool(0, max);
@@ -31,7 +31,7 @@ public class App {
         Set<Long> consumed = Collections.synchronizedSet(new TreeSet<Long>());
         long ms = System.currentTimeMillis();
         int n = 0, m = 0;
-        for (int i = 0; i < 1000 * 1000 * 10; ++i) {
+        for (int i = 0; i < 1000 * 1000; ++i) {
             long l = r.nextLong();
             l = Math.abs(l % max);
             try {
