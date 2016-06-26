@@ -1,7 +1,7 @@
 package com.greenlaw110.numpool;
 
 /**
- * A datastructure to hold two blocks
+ * A data structure to hold two blocks
  */
 public class BlockPair {
     private Block a;
