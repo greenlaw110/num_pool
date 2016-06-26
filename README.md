@@ -23,5 +23,5 @@ NumPoolConfig.configureBitSetWords(2);
 
 ## Benchmark
 
-Checkout [benchmark](benchmark.md) document to understand the system performance under different configuration
+Checkout [benchmark](doc/benchmark.md) document to understand the system performance under different configuration
 
