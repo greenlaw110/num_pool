@@ -4,7 +4,7 @@ package com.greenlaw110.numpool;
  * Defines the relationship between two {@link Block blocks} or a number to
  * a {@link Block block}
  */
-public enum Position {
+enum Position {
     /**
      * A number of a block's {@link Block#max()} is less than the target block's {@link Block#min()}
      */

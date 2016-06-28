@@ -3,7 +3,7 @@ package com.greenlaw110.numpool;
 /**
  * A data structure to hold two blocks
  */
-public class BlockPair {
+class BlockPair {
     private Block a;
     private Block b;
 

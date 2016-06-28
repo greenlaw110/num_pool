@@ -23,17 +23,18 @@ public class App {
     }
 
     private static void benchmark() throws Exception {
-        NumPoolConfig.configureBitSetWords(1);
+        NumPoolConfig.configureBitSetWords(1024);
         long max = Integer.MAX_VALUE * 100L;
+        long min = Integer.MAX_VALUE * 100L - 1000 * 1000L;
         //long max = 10;
-        NumPool pool = new NumPool(0, max);
+        NumPool pool = new NumPool(min, max);
         Random r = new Random();
         Set<Long> consumed = Collections.synchronizedSet(new TreeSet<Long>());
         long ms = System.currentTimeMillis();
         int n = 0, m = 0;
-        for (int i = 0; i < 1000 * 1000; ++i) {
+        for (int i = 0; i < 1000 * 600; ++i) {
             long l = r.nextLong();
-            l = Math.abs(l % max);
+            l = Math.abs(l % (max - min)) + min;
             try {
                 if (!consumed.contains(l)) {
                     //System.err.printf("-%d::%s::%s\n", l, pool.toString("|"), consumed);
@@ -71,7 +72,6 @@ public class App {
         Runtime runtime = Runtime.getRuntime();
         System.out.printf("memory used: %dMB, free: %dMB\n", (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024), runtime.freeMemory() / (1024 * 1024));
         consumed.clear();
-        Thread.sleep(1000);
         System.out.printf("memory used | after clear consumed: %dMB, free: %dMB\n", (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024), runtime.freeMemory() / (1024 * 1024));
         System.gc();
         Thread.sleep(1000);
