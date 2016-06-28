@@ -8,9 +8,9 @@ public class ScriptPlayer {
             long l = Long.parseLong(s);
             System.out.printf("%s%d::", take ? "-" : "+", Math.abs(l));
             if (!take) {
-                pool.offer(l);
+                pool.checkIn(l);
             } else {
-                pool.take(Math.abs(l));
+                pool.checkOut(Math.abs(l));
             }
             System.out.println(pool);
         }

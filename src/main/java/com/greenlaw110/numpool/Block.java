@@ -34,7 +34,7 @@ public interface Block {
      *         block does not split
      * @throws NumberNotAvailableException if the number is not available in the block
      */
-    BlockPair take(long n);
+    BlockPair checkOut(long n);
 
     /**
      * Offer a number into this block
@@ -64,7 +64,7 @@ public interface Block {
      * @return
      * @throws NumberNotAvailableException if the number cannot be offered into the block
      */
-    BlockPair offer(long l);
+    BlockPair checkIn(long l);
 
     /**
      * Return string representation of this block

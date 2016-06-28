@@ -44,7 +44,8 @@ class AdaptiveBlock implements Block {
     }
 
     /**
-     * The logic of this function:
+     * Checkout a number from this block
+     * <p>The logic of this function</p>
      * <ul>
      *     <li>When l is out of Range then throw out an exception</li>
      *     <li>When l equals to min or max, update block scope and return {@code null}</li>
@@ -56,7 +57,7 @@ class AdaptiveBlock implements Block {
      * @param n the number to be taken out from the block
      * @return the block pair if this block splits
      */
-    public BlockPair take(long n) {
+    public BlockPair checkOut(long n) {
         if (n < min || n > max) {
             throw new NumberOutOfRangeException(n);
         }
@@ -92,15 +93,22 @@ class AdaptiveBlock implements Block {
     }
 
     /**
-     * If supplied number is one less than {@link #min} then
-     * take it and set the min to that number
+     * Check in a number into the block
      *
-     * if supplied number is one larger than {@link #max} then
-     * take it and set the max to that number
+     * <p>If the number specified is one less than {@link #min} then
+     * check it in and set the min to that number</p>
      *
-     * For all other cases it's an error
+     * <p>if the number specified is one larger than {@link #max} then
+     * check it in and set the max to that number</p>
+     *
+     * <p>If the number specified fall into the block scope then verify if
+     * it is a number already checked out via bit set operations. If it
+     * corresponding to a checked out number, then check it in and set
+     * the bitset state</p>
+     *
+     * <p></p>For all other cases it's an error</p>
      */
-    public BlockPair offer(long n) {
+    public BlockPair checkIn(long n) {
         if (n + 1 == min) {
             return expandLeft();
         } else if (n - 1 == max) {
@@ -115,8 +123,6 @@ class AdaptiveBlock implements Block {
                 bitSet.set(offset(max), true);
                 return null;
             }
-            boolean x = isOverflow(n - min + 1);
-            Position p = positionTo(n);
             throw new NumberNotAvailableException(n);
         }
         if (null != bitSet) {
@@ -308,12 +314,6 @@ class AdaptiveBlock implements Block {
         if (null != bitSet) {
             int offset = bitSet.nextSetBit(1);
             bitSet = bitSet.get(offset, bitSet.length());
-//            long[] la = bitSet.toLongArray();
-//            int len = la.length;
-//            for (int i = 0; i < len; ++i) {
-//                la[i] = la[i] >>> offset;
-//            }
-//            bitSet = BitSet.valueOf(la);
             min += offset - 1;
         }
     }

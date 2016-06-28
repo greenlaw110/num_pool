@@ -34,12 +34,12 @@ public class NumPool {
         }
 
         @Override
-        public BlockPair take(long n) {
+        public BlockPair checkOut(long n) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public BlockPair offer(long l) {
+        public BlockPair checkIn(long l) {
             throw new UnsupportedOperationException();
         }
 
@@ -88,7 +88,7 @@ public class NumPool {
         this.max = max;
     }
 
-    public synchronized void take(long n) {
+    public synchronized void checkOut(long n) {
         checkRange(n);
         Block block = locate(n);
         if (block.positionTo(n).isOn()) {
@@ -96,7 +96,7 @@ public class NumPool {
             // in order to refresh the treeset's internal state
             // while element state changed
             beforeUpdate(block);
-            BlockPair pair = block.take(n);
+            BlockPair pair = block.checkOut(n);
             afterUpdate(block);
             if (null != pair) {
                 blocks.remove(block);
@@ -110,7 +110,7 @@ public class NumPool {
         }
     }
 
-    public synchronized void offer(long n) {
+    public synchronized void checkIn(long n) {
         checkRange(n);
         Block block = locate(n);
         if (null == block) {
@@ -128,7 +128,7 @@ public class NumPool {
         } else {
             if (block.positionTo(n).isOn()) {
                 beforeUpdate(block);
-                BlockPair pair = block.offer(n);
+                BlockPair pair = block.checkIn(n);
                 afterUpdate(block);
                 if (null != pair) {
                     blocks.remove(block);

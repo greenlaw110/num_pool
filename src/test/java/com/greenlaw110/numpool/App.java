@@ -39,14 +39,14 @@ public class App {
                     //System.err.printf("-%d::%s::%s\n", l, pool.toString("|"), consumed);
                     //System.err.printf("-%d::%s\n", l, pool.toString("|"));
                     //logger.trace("-%d::%s::%s", l, pool.blockCount(), consumed.size());
-                    pool.take(l);
+                    pool.checkOut(l);
                     consumed.add(l);
                     n++;
                 } else {
                     //System.err.printf("+%d::%s::%s\n", l, pool.toString("|"), consumed);
                     //System.err.printf("+%d::%s\n", l, pool.toString("|"));
                     //logger.trace("-%d::%s::%s", l, pool.blockCount(), consumed.size());
-                    pool.offer(l);
+                    pool.checkIn(l);
                     consumed.remove(l);
                     m++;
                 }
@@ -86,11 +86,11 @@ public class App {
         NumPool pool = new NumPool(0, max);
         long[] la = {63, 77, 92, 12, 52, 27, 88, 72, 32, 14, 74, 21, 78, 9, 31, 95, 25, 58, 91, 5, 76, 35, 43, 3, 37, 19, 83, 8, 11, 62, 51, 13, 89, 22, 16, 96, 81, 39, 70, 57, 41, 30, 53, 10, 69, 73, 29, 18, 87, 85, 38, 55, 98, 36, 86, 67, 6};
         for (int i = 0; i < la.length; ++i) {
-            pool.take(la[i]);
+            pool.checkOut(la[i]);
         }
         long[] la0 = {3, 5, 6, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19, 21, 22, 25, 27, 29, 30, 31, 32, 35, 36, 37, 38, 39, 41, 43, 51, 52, 53, 55, 57, 58, 62, 63, 67, 69, 70, 72, 73, 74, 76, 77, 78, 81, 83, 85, 86, 87, 88, 89, 91, 92, 95, 96, 98};
         for (int i = 0; i < la.length; ++i) {
-            pool.offer(la0[i]);
+            pool.checkIn(la0[i]);
         }
 
         System.out.println(pool);
@@ -98,10 +98,10 @@ public class App {
 
     private static void testcase2() {
         NumPool pool = new NumPool(0, 10);
-        pool.take(1);
-        pool.take(3);
-        pool.take(7);
-        pool.offer(1);
+        pool.checkOut(1);
+        pool.checkOut(3);
+        pool.checkOut(7);
+        pool.checkIn(1);
         System.out.println(pool);
     }
 
@@ -120,10 +120,10 @@ public class App {
     private static void testcase5() {
         NumPoolConfig.configureBitSetWords(2);
         NumPool pool = new NumPool(0, 65);
-        pool.take(13);
-        pool.take(8);
-        pool.take(22);
-        pool.take(0);
+        pool.checkOut(13);
+        pool.checkOut(8);
+        pool.checkOut(22);
+        pool.checkOut(0);
         System.out.println(pool);
     }
 

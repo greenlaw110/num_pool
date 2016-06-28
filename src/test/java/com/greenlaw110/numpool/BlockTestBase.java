@@ -31,44 +31,44 @@ public abstract class BlockTestBase extends TestBase {
     @Test(expected = NumberOutOfRangeException.class)
     public void consumeNumLessThanMinShallRaiseException() {
         int n = 1 + r.nextInt((int) targetMin);
-        target.take(n);
+        target.checkOut(n);
     }
 
     @Test(expected = NumberOutOfRangeException.class)
     public void consumeNumMoreThanMaxShallRaiseException() {
         long n = targetMax + 1;
-        target.take(n);
+        target.checkOut(n);
     }
 
     @Test
     public void consumeMinShallNotRaiseException() {
-        target.take(targetMin);
+        target.checkOut(targetMin);
     }
 
     @Test(expected = NumberOutOfRangeException.class)
     public void consumeAlreadyConsumedMinShallRaiseException() {
-        target.take(targetMin);
-        target.take(targetMin);
+        target.checkOut(targetMin);
+        target.checkOut(targetMin);
     }
 
     @Test
     public void consumeMaxShallNotRaiseException() {
-        target.take(targetMax);
+        target.checkOut(targetMax);
     }
 
     @Test(expected = NumberOutOfRangeException.class)
     public void consumeAlreadyConsumedMaxShallRaiseException() {
-        target.take(targetMax);
-        target.take(targetMax);
+        target.checkOut(targetMax);
+        target.checkOut(targetMax);
     }
 
     @Test
     public void consumeNumInsideBlockShallNotRaiseException() {
         long n = targetMin + 1;
         long n2 = targetMax - 1;
-        target.take(n);
+        target.checkOut(n);
         if (n != n2) {
-            target.take(n2);
+            target.checkOut(n2);
         }
     }
 
@@ -79,11 +79,11 @@ public abstract class BlockTestBase extends TestBase {
         eq(sb.toString(), target.toString());
 
         target = createBlock(112, 160);
-        target.take(128);
-        target.take(131);
-        target.take(132);
-        target.take(134);
-        target.take(158);
+        target.checkOut(128);
+        target.checkOut(131);
+        target.checkOut(132);
+        target.checkOut(134);
+        target.checkOut(158);
         eq("112-127,129-130,133,135-157,159-160", target.toString());
     }
 
